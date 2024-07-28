@@ -1,0 +1,32 @@
+name: Build and Deploy
+
+on: 
+    push:
+        branches:
+            -development
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Install Bun
+            run: curl -fsSL https://bun.sh/install | bash
+
+          - name: Set up Bun
+            run: bun --version
+            
+          - name: Install dependencies
+            run: bun install
+
+          - name: Build the project
+            run: bun run build
+
+          - name: Deploy to Github Pages
+            uses: peaceiries/actions-gh-pages@v3
+            with:
+               github_token: ${{ secrets.GITHUB_TOKEN}}
+               publish_dir: ./dist
