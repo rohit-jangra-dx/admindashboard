@@ -11,9 +11,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
-  greet:
+  build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,6 +36,9 @@ jobs:
 
     - name: build the project
       run: bun run build
+      
+    - name: shows the contents created
+      run: ls -la
 
     - name: deploy to github pages
       uses: peaceiris/actions-gh-pages@v4
