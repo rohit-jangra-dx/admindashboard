@@ -2,8 +2,8 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { useFetchData, User } from "../hooks/useFetchData"
 
 type Actions = {
-    delete: (id: string) => void;
-    edit: (id: string, newData: User) => void;
+    deleteX: (id: string) => void;
+    editX: (id: string, newData: User) => void;
 }
 type UserDataContextType = {
     data: Array<User> | undefined;
@@ -29,13 +29,13 @@ export function UserDataContextProvider({children}:{children: ReactNode}){
     // actions that can be done on data
     const actions =  new Object(null) as Actions
 
-    actions.delete = (id: string) => {
+    actions.deleteX = (id: string) => {
         
         const newData = data?.filter(item => item.id != id)
         setData(newData)
     }
 
-    actions.edit = (id: string, newData: User) => {
+    actions.editX = (id: string, newData: User) => {
         if(data !== undefined){
 
             const newDataArray = data.map(item => item.id === id ? newData : item)
