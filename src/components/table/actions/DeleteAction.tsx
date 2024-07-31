@@ -1,10 +1,10 @@
 import { MdDeleteOutline } from "react-icons/md";
 import { useUserDataContext } from "../../../contexts/UserDataContext";
 
-type DeleteButtonProps = {
+type DeleteActionProps = {
     toDelete: string;
 }
-export default function DeleteButton({toDelete}:DeleteButtonProps){
+export default function DeleteAction({toDelete}:DeleteActionProps){
     const {actions:{deleteX}} = useUserDataContext()
 
 
