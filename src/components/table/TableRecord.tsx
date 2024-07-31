@@ -10,7 +10,7 @@ function TableRecord({ fields, actions,numberOfColumns }: RecordProps) {
 
     return (
         <div
-        className={` grid grid-cols-${numberOfColumns} hover:bg-[#F9FAFC]`}>
+        className={` grid grid-cols-${numberOfColumns} hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`}>
             {fields.map((field,index) => <div
              key={index}
              className="pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)}
