@@ -1,7 +1,6 @@
 import { ReactNode } from "react"
 import Table from "./components/table/Table"
 import { useUserDataContext } from "./contexts/UserDataContext"
-import {type User } from "./hooks/useFetchData"
 
 // icons needed to render air
 import {MdCheckBoxOutlineBlank} from 'react-icons/md'
@@ -10,10 +9,6 @@ import {MdCheckBoxOutlineBlank} from 'react-icons/md'
 
 function App() {
   const {data, status, error} = useUserDataContext()
-
-  const userObject = Object.create(null) as User
-
-  console.log(Object.keys(userObject))
 
 
   // this should have been dynamic but i am making it static to save some time.

@@ -1,11 +1,18 @@
+import { useUserDataContext } from "../../../contexts/UserDataContext";
 import { useUserRecordContext } from "../../../contexts/UserRecordContext";
 
 import { MdOutlineModeEdit, MdDone, MdClose } from "react-icons/md";
 
 export default function EditAction(){
-    const {editedData, setIsEditingOn, isEditingOn} = useUserRecordContext()
+    const {editedData,setIsEditingOn, isEditingOn} = useUserRecordContext()
+    const {actions:{editX}} = useUserDataContext()
+    
+    const updateData = () =>{
 
-    console.log(editedData,isEditingOn)
+        if(!editedData?.id) return 
+        const id = editedData.id
+        editX(id, editedData)
+    }
 
     if (isEditingOn){
         return (
@@ -13,7 +20,11 @@ export default function EditAction(){
             className=" flex justify-center items-center gap-5 text-3xl">
                 <MdDone
                  className=" text-green-400"
-                 onClick={()=> setIsEditingOn(!isEditingOn)}/>
+                 onClick={()=> {
+                    setIsEditingOn(!isEditingOn)
+                    updateData()
+                }
+                    }/>
                 <MdClose onClick={()=> setIsEditingOn(!isEditingOn)}/>
             </div>
         )

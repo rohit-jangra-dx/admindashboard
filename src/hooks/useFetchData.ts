@@ -5,6 +5,7 @@ type UseFetchDataArgs = {
 }
 
 export type User = {
+  [key: string]: string;
     id: string;
     name: string;
     email: string;

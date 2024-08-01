@@ -11,19 +11,15 @@ import EditAction from "./actions/EditAction";
 type TableProps = {
     tableHeading: Array<string | ReactNode>;
     tableData: Array<User>;
-    recordActions?: Array<ReactNode>
 }
 
 function Table({
     tableHeading,
     tableData,
-    recordActions
 }:TableProps){
 
-    console.log(tableData,recordActions)
-
     const columnCount = tableHeading.length
-    console.log(columnCount)
+
     return <div
     className={`w-full grid grid-cols-1`}>
         <TableHeading 
