@@ -3,17 +3,17 @@ import Table from "./components/table/Table"
 import { useUserDataContext } from "./contexts/UserDataContext"
 
 // icons needed to render air
-import {MdCheckBoxOutlineBlank} from 'react-icons/md'
+import { FieldCheckbox } from "./components/table/FieldFormElements"
 
 // api endpoint
 
 function App() {
-  const {data, status, error} = useUserDataContext()
+  const { isAllSelected,actions:{toggleAll}, data, status, error} = useUserDataContext()
 
 
   // this should have been dynamic but i am making it static to save some time.
   const tableHeadings = [
-    <MdCheckBoxOutlineBlank fontSize={'1.5rem'}/>,
+    <FieldCheckbox isSelected={isAllSelected} onChange={()=> toggleAll()}/>,
     "Name",
     "Email",
     "Role",

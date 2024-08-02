@@ -2,10 +2,11 @@ import { ReactNode } from "react";
 import TableHeading from "./TableHeading";
 import TableRecord from "./TableRecord";
 import { User } from "../../hooks/useFetchData";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { UserRecordContextProvider } from "../../contexts/UserRecordContext";
 import DeleteAction from "./actions/DeleteAction";
 import EditAction from "./actions/EditAction";
+import { FieldCheckbox } from "./FieldFormElements";
+import { useUserDataContext } from "../../contexts/UserDataContext";
 
 
 type TableProps = {
@@ -18,6 +19,7 @@ function Table({
     tableData,
 }:TableProps){
 
+    const {selectedUsers,actions:{toggleSelection}}= useUserDataContext()
     const columnCount = tableHeading.length
 
     return <div
@@ -28,7 +30,7 @@ function Table({
         />
         {
             tableData.map(record =>  {
-                const dataToPass = [<MdCheckBoxOutlineBlank opacity={'.4'} fontSize={'1.5rem'}/>,record.name,record.email,record.role]
+                const dataToPass = [<FieldCheckbox isSelected={selectedUsers[record.id] || false} onChange={()=>toggleSelection(record.id)}/>,record.name,record.email,record.role]
                 return <UserRecordContextProvider fieldData={record}>
                         <TableRecord 
                         key={record.id} fields={dataToPass} 
