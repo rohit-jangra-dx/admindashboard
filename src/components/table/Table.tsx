@@ -30,14 +30,22 @@ function Table({
         />
         {
             tableData.map(record =>  {
-                const dataToPass = [<FieldCheckbox isSelected={selectedUsers[record.id] || false} onChange={()=>toggleSelection(record.id)}/>,record.name,record.email,record.role]
+// checking toggle state
+                const isSelected = selectedUsers[record.id] || false
+                const dataToPass = [<FieldCheckbox isSelected={isSelected} onChange={()=>toggleSelection(record.id)}/>,record.name,record.email,record.role]
                 return <UserRecordContextProvider fieldData={record}>
                         <TableRecord 
                         key={record.id} fields={dataToPass} 
                         numberOfColumns={columnCount} 
-                        actions={[
+                        actions={
+//only delete action will be there if it's selected
+                            isSelected ?
+                            [
+                                <DeleteAction toDelete={[record.id]}/>
+                            ]:
+                            [
                             <EditAction/>,
-                            <DeleteAction toDelete={record.id}/>
+                            <DeleteAction toDelete={[record.id]}/>
                              ]}
                              />
                 </UserRecordContextProvider> 

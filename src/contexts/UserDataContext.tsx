@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { useFetchData, User } from "../hooks/useFetchData"
 
 interface Actions {
-    deleteX: (id: string) => void;
+    deleteX: (...ids: string[]) => void;
     editX: (id: string, newData: User) => void;
     toggleSelection: (...ids: string[]) => void;
     toggleAll: () => void;
@@ -37,10 +37,17 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
     // actions that can be done on data
     const actions = new Object(null) as Actions
 
-    actions.deleteX = (id: string) => {
+    actions.deleteX = (...ids: string[]) => {
 
-        const newData = data?.filter(item => item.id != id)
-        setData(newData)
+        setData(prev =>{
+            if(prev !== undefined) {
+
+                let newState = [...prev]
+                newState = newState.filter(record => !ids.includes(record.id))
+                return newState
+            }
+            return prev
+        })
     }
 
     actions.editX = (id: string, newData: User) => {

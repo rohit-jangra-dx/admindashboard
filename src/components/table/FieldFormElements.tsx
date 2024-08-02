@@ -34,6 +34,7 @@ export function FieldCheckbox({isSelected, onChange}:FieldCheckboxProps){
 
     return (
         <input
+        className=" w-[20px] h-[20px]"
         type="checkbox"
         checked={isSelected}
         onChange={onChange}
