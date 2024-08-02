@@ -3,21 +3,32 @@ import Table from "./components/table/Table"
 import { useUserDataContext } from "./contexts/UserDataContext"
 
 // icons needed to render air
-import {MdCheckBoxOutlineBlank} from 'react-icons/md'
+import { FieldCheckbox } from "./components/table/FieldFormElements"
 
 // api endpoint
 
 function App() {
-  const {data, status, error} = useUserDataContext()
+  const { isAllSelected,selectedUsers,actions:{toggleAll,deleteX}, data, status, error} = useUserDataContext()
 
+  
 
   // this should have been dynamic but i am making it static to save some time.
   const tableHeadings = [
-    <MdCheckBoxOutlineBlank fontSize={'1.5rem'}/>,
+    <FieldCheckbox isSelected={isAllSelected} onChange={()=> toggleAll()}/>,
     "Name",
     "Email",
     "Role",
-    "Actions"
+    isAllSelected || Object.values(selectedUsers).filter(value => value).length > 1 ? 
+    <button
+     className=" border-2 border-red-400 w-full h-full rounded-xl py-2 text-[16px] font-normal text-white hover:text-red-400 bg-red-400 hover:bg-white"
+     onClick={() => {
+        const toBeDeletedIds = Object.keys(selectedUsers).filter(id => selectedUsers[id] === true)
+       deleteX(...toBeDeletedIds)
+     }
+     }>
+    Delete Selected 
+    </button> 
+    : "Actions"
   ]
 
   let currentView :ReactNode

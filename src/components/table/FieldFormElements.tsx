@@ -1,4 +1,4 @@
-import { FocusEventHandler, useState } from "react"
+import { ChangeEventHandler, FocusEventHandler, useState } from "react"
 
 type FieldProps = {
     value: string;
@@ -20,6 +20,24 @@ export function FieldInput({value,onBlur}: FieldProps){
         value={fieldValue}
         onBlur={onBlur}
         onChange={handleChange}
+        />
+    )
+}
+
+
+type FieldCheckboxProps = {
+    isSelected: boolean;
+    onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
+export function FieldCheckbox({isSelected, onChange}:FieldCheckboxProps){
+
+    return (
+        <input
+        className=" w-[20px] h-[20px]"
+        type="checkbox"
+        checked={isSelected}
+        onChange={onChange}
         />
     )
 }
