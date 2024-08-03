@@ -4,6 +4,7 @@ import { useUserDataContext } from "./contexts/UserDataContext"
 
 // icons needed to render air
 import { FieldCheckbox } from "./components/table/FieldFormElements"
+import { SearchBar } from "./components/searchbar/SearchBar"
 
 // api endpoint
 
@@ -43,6 +44,7 @@ function App() {
     case 'success':{
       const welpdata = data !== undefined ? data : []
       currentView =     <div className=" w-full p-2 bg-white">
+      <SearchBar/>
       <Table tableHeading={tableHeadings} tableData={welpdata}/>
     </div>
     }

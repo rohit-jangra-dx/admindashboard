@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useFetchData, User } from "../hooks/useFetchData"
 
 interface Actions {
@@ -35,10 +35,8 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
 
 
     // actions that can be done on data
-    const actions = new Object(null) as Actions
-
-    actions.deleteX = (...ids: string[]) => {
-
+    const deleteX = useCallback((...ids: string[]) => {
+        data !== undefined &&
         setData(prev =>{
             if(prev !== undefined) {
 
@@ -48,16 +46,18 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             }
             return prev
         })
-    }
+    },[data])
 
-    actions.editX = (id: string, newData: User) => {
+    const editX = useCallback((id: string, newData: User) => {
         if (data !== undefined) {
 
             const newDataArray = data.map(item => item.id === id ? newData : item)
             setData(newDataArray)
         }
-    }
-    actions.toggleSelection = (...ids: string[]) =>{
+    },[data])
+
+    const toggleSelection = useCallback((...ids: string[]) =>{
+        
         setSelectedUsers(prev => {
             
             const next = {...prev};
@@ -66,9 +66,9 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             })
             return next;
         })
-    }
+    },[])
 
-    actions.toggleAll = () =>{
+    const toggleAll = useCallback(() =>{
          if ( data) {
             setSelectedUsers(prev => {
                 const next = {...prev};
@@ -79,7 +79,14 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
                 return next;
             })
          }
-    }
+    },[data, isAllSelected])
+
+    const actions: Actions = useMemo(() => ({
+        deleteX,
+        editX,
+        toggleSelection,
+        toggleAll
+    }),[deleteX,editX,toggleSelection, toggleAll]) 
 
     return <UserDataContext.Provider value={
         {
