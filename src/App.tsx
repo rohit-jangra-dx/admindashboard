@@ -36,10 +36,10 @@ function App() {
 
   switch(status){
     case 'loading':
-      currentView = <div>...Loading</div>
+      currentView = <div className=" bg-blue-100 text-center text-blue-600 py-[2rem]">Loading...</div>
       break;
     case 'error':
-      currentView = <div>{error}</div>
+      currentView = <div className=" bg-red-100 text-center text-red-600 py-[2rem]">{error} !</div>
       break;
     case 'success':{
       const welpdata = data !== undefined ? data : []
