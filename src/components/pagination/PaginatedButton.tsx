@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { usePaginationContext } from "./PaginationContext";
+import { usePaginationContext } from "@/contexts/PaginationContext";
 
 type PaginatedButtonProps ={
     label: string | ReactNode;
