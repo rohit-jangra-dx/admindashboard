@@ -14,6 +14,8 @@ type UserDataContextType = {
     error?: string | null | undefined;
     selectedUsers: Record<string, boolean>;
     isAllSelected: boolean;
+    queryData: Array<User> | undefined;
+    setQueryData: (queryData: Array<User> | undefined) => void
 }
 
 const UserDataContext = createContext<UserDataContextType | undefined>(undefined)
@@ -23,12 +25,19 @@ const url = 'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/m
 
 export function UserDataContextProvider({ children }: { children: ReactNode }) {
 
+    // normal data view states
     const { loading, error, data: userData } = useFetchData({ url })
     const [data, setData] = useState<Array<User> | undefined>(undefined)
+    
+    // checkbox states
     const [selectedUsers, setSelectedUsers] = useState<Record<string, boolean>>({});
-
     const isAllSelected = data ? data.every( user => selectedUsers[user.id]) : false;
     
+    // query data states
+    const [queryData, setQueryData] = useState<Array<User> | undefined>(undefined)
+
+
+
     useEffect(() => {
         if (loading === false) setData(userData)
     }, [userData, loading])
@@ -88,6 +97,8 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
         toggleAll
     }),[deleteX,editX,toggleSelection, toggleAll]) 
 
+
+
     return <UserDataContext.Provider value={
         {
             data,
@@ -95,7 +106,9 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             status: loading ? 'loading' : error ? 'error' : 'success',
             error,
             selectedUsers, 
-            isAllSelected
+            isAllSelected,
+            queryData,
+            setQueryData
             }
         }>
         {children}

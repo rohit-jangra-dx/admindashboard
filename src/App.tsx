@@ -9,7 +9,7 @@ import { SearchBar } from "./components/searchbar/SearchBar"
 // api endpoint
 
 function App() {
-  const { isAllSelected,selectedUsers,actions:{toggleAll,deleteX}, data, status, error} = useUserDataContext()
+  const { isAllSelected,queryData,selectedUsers,actions:{toggleAll,deleteX}, data, status, error} = useUserDataContext()
 
   
 
@@ -42,7 +42,7 @@ function App() {
       currentView = <div className=" bg-red-100 text-center text-red-600 py-[2rem]">{error} !</div>
       break;
     case 'success':{
-      const welpdata = data !== undefined ? data : []
+      const welpdata = queryData ? queryData : data !== undefined ? data : []
       currentView =     <div className=" w-full p-2 bg-white">
       <SearchBar/>
       <Table tableHeading={tableHeadings} tableData={welpdata}/>
@@ -53,10 +53,9 @@ function App() {
       throw new Error("Unexpected state has occured during fetching data!")  
   }
 
-  return <div>{
-    currentView
-  }
+  return <div>{currentView}
   </div>
+
 }
 
 export default App

@@ -39,5 +39,6 @@ export function FieldCheckbox({isSelected, onChange}:FieldCheckboxProps){
         checked={isSelected}
         onChange={onChange}
         />
+        
     )
 }
