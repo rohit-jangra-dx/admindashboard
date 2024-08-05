@@ -1,18 +1,22 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useState } from "react";
 
 type PaginationContextType = {
-    currentValue: number;
-    updateCurrentValue: (value: number) => void
+    currentPage: number;
+    updateCurrentPage: (value: number) => void
 }
 
 const PaginationContext = createContext<PaginationContextType | undefined>(undefined)
 
 export function PaginationContextProvider({children}:{children: ReactNode}){
-    const [currentValue, setCurrentValue] = useState<number>(1)
+    const [currentPage, setcurrentPage] = useState<number>(1)
     
-    const updateCurrentValue = (value:number) => setCurrentValue(value)
+    const updateCurrentPage =(value:number) => setcurrentPage(prev => {
+        if (value !== prev) return value
+        return prev
 
-    return <PaginationContext.Provider value={{currentValue, updateCurrentValue}}>
+    })
+
+    return <PaginationContext.Provider value={{currentPage, updateCurrentPage}}>
         {children}
     </PaginationContext.Provider>
 }

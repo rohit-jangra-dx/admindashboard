@@ -1,20 +1,31 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { usePaginationContext } from "@/contexts/PaginationContext";
 
-type PaginatedButtonProps ={
-    label: string | ReactNode;
-    value: number
-
+type PaginatedButtonProps = {
+  label: string | ReactNode;
+  value: number | null
 }
 
-function PaginatedButton({label, value}:PaginatedButtonProps) {
+function PaginatedButton({ label, value }: PaginatedButtonProps) {
 
-    const {updateCurrentValue} = usePaginationContext()
+  const { currentPage, updateCurrentPage } = usePaginationContext()
+
+  // repeating the code : can differentiate between react node and string
+  
+  if (currentPage === value && !React.isValidElement(label) ) {
+    return <button
+      className="bg-[#d1cece] flex justify-center items-center w-[50px] h-[50px] rounded-full"
+      onClick={() => value !== null && updateCurrentPage(value)}
+    >
+      {label}
+    </button>
+  }
   return (
     <button
-    onClick={()=>updateCurrentValue(value)}
+    className=" text-xl hover:bg-[#e0e4ec] flex justify-center items-center w-[50px] h-[50px] rounded-full"
+      onClick={() => value !== null && updateCurrentPage(value)}
     >
-        {label}
+      {label}
     </button>
   )
 }
