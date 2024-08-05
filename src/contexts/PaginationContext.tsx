@@ -21,6 +21,7 @@ export function PaginationContextProvider({children}:{children: ReactNode}){
     </PaginationContext.Provider>
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const usePaginationContext = (): PaginationContextType => {
    
     const context = useContext(PaginationContext)
