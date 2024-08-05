@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useFetchData, User } from "../hooks/useFetchData"
 
 interface Actions {
@@ -14,6 +14,8 @@ type UserDataContextType = {
     error?: string | null | undefined;
     selectedUsers: Record<string, boolean>;
     isAllSelected: boolean;
+    queryData: Array<User> | undefined;
+    setQueryData: (queryData: Array<User> | undefined) => void
 }
 
 const UserDataContext = createContext<UserDataContextType | undefined>(undefined)
@@ -23,22 +25,27 @@ const url = 'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/m
 
 export function UserDataContextProvider({ children }: { children: ReactNode }) {
 
+    // normal data view states
     const { loading, error, data: userData } = useFetchData({ url })
     const [data, setData] = useState<Array<User> | undefined>(undefined)
+    
+    // checkbox states
     const [selectedUsers, setSelectedUsers] = useState<Record<string, boolean>>({});
-
     const isAllSelected = data ? data.every( user => selectedUsers[user.id]) : false;
     
+    // query data states
+    const [queryData, setQueryData] = useState<Array<User> | undefined>(undefined)
+
+
+
     useEffect(() => {
         if (loading === false) setData(userData)
     }, [userData, loading])
 
 
     // actions that can be done on data
-    const actions = new Object(null) as Actions
-
-    actions.deleteX = (...ids: string[]) => {
-
+    const deleteX = useCallback((...ids: string[]) => {
+        data !== undefined &&
         setData(prev =>{
             if(prev !== undefined) {
 
@@ -48,16 +55,18 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             }
             return prev
         })
-    }
+    },[data])
 
-    actions.editX = (id: string, newData: User) => {
+    const editX = useCallback((id: string, newData: User) => {
         if (data !== undefined) {
 
             const newDataArray = data.map(item => item.id === id ? newData : item)
             setData(newDataArray)
         }
-    }
-    actions.toggleSelection = (...ids: string[]) =>{
+    },[data])
+
+    const toggleSelection = useCallback((...ids: string[]) =>{
+        
         setSelectedUsers(prev => {
             
             const next = {...prev};
@@ -66,9 +75,9 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             })
             return next;
         })
-    }
+    },[])
 
-    actions.toggleAll = () =>{
+    const toggleAll = useCallback(() =>{
          if ( data) {
             setSelectedUsers(prev => {
                 const next = {...prev};
@@ -79,7 +88,16 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
                 return next;
             })
          }
-    }
+    },[data, isAllSelected])
+
+    const actions: Actions = useMemo(() => ({
+        deleteX,
+        editX,
+        toggleSelection,
+        toggleAll
+    }),[deleteX,editX,toggleSelection, toggleAll]) 
+
+
 
     return <UserDataContext.Provider value={
         {
@@ -88,7 +106,9 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
             status: loading ? 'loading' : error ? 'error' : 'success',
             error,
             selectedUsers, 
-            isAllSelected
+            isAllSelected,
+            queryData,
+            setQueryData
             }
         }>
         {children}

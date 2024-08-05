@@ -33,8 +33,10 @@ function Table({
 // checking toggle state
                 const isSelected = selectedUsers[record.id] || false
                 const dataToPass = [<FieldCheckbox isSelected={isSelected} onChange={()=>toggleSelection(record.id)}/>,record.name,record.email,record.role]
+                
                 return <UserRecordContextProvider fieldData={record}>
                         <TableRecord 
+                        isSelected={isSelected}
                         key={record.id} fields={dataToPass} 
                         numberOfColumns={columnCount} 
                         actions={

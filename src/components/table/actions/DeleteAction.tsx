@@ -10,7 +10,7 @@ export default function DeleteAction({toDelete}:DeleteActionProps){
 
     return (
     <button
-    className=" text-red-400 hover:text-red-200"
+    className="delete text-red-400 hover:text-red-200"
     onClick={()=> deleteX(...toDelete)}>
     <MdDeleteOutline
     fontSize={'1.5rem'}/>

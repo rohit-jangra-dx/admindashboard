@@ -8,19 +8,24 @@ type RecordProps = {
     fields: Array<string | ReactNode>;
     actions?: Array<ReactNode>;
     numberOfColumns: number;
+    isSelected?: boolean;
 }
 
-function TableRecord({ fields, actions, numberOfColumns }: RecordProps) {
+function TableRecord({ fields,isSelected ,actions, numberOfColumns }: RecordProps) {
 
+    const variantClass = `${numberOfColumns}${isSelected ? 2 : 1}`
 
     // dynamic (lol static) classes for columns
-    const recordStyleVariant: { [key: number]: string } = {
-        4: ` grid grid-cols-4  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        5: ` grid grid-cols-5  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        6: ` grid grid-cols-6  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        7: ` grid grid-cols-7  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+    const recordStyleVariant: { [key: string]: string } = {
+        '41': ` grid grid-cols-4  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '51': ` grid grid-cols-5  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '61': ` grid grid-cols-6  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '71': ` grid grid-cols-7  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '42': ` grid grid-cols-4  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '52': ` grid grid-cols-5  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '62': ` grid grid-cols-6  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '72': ` grid grid-cols-7  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
     }
-
 
     // dealing with reactnode maniac
     const isString = (node: ReactNode): node is string => typeof node === 'string'
@@ -30,7 +35,7 @@ function TableRecord({ fields, actions, numberOfColumns }: RecordProps) {
 
         return (
             <div
-                className={recordStyleVariant[numberOfColumns]}>
+                className={recordStyleVariant[variantClass]}>
                 {fields.map((field, index) => <div
                     key={index}
                     className="pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)}

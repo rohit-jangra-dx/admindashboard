@@ -4,11 +4,12 @@ import { useUserDataContext } from "./contexts/UserDataContext"
 
 // icons needed to render air
 import { FieldCheckbox } from "./components/table/FieldFormElements"
+import { SearchBar } from "./components/searchbar/SearchBar"
 
 // api endpoint
 
 function App() {
-  const { isAllSelected,selectedUsers,actions:{toggleAll,deleteX}, data, status, error} = useUserDataContext()
+  const { isAllSelected,queryData,selectedUsers,actions:{toggleAll,deleteX}, data, status, error} = useUserDataContext()
 
   
 
@@ -35,14 +36,15 @@ function App() {
 
   switch(status){
     case 'loading':
-      currentView = <div>...Loading</div>
+      currentView = <div className=" bg-blue-100 text-center text-blue-600 py-[2rem]">Loading...</div>
       break;
     case 'error':
-      currentView = <div>{error}</div>
+      currentView = <div className=" bg-red-100 text-center text-red-600 py-[2rem]">{error} !</div>
       break;
     case 'success':{
-      const welpdata = data !== undefined ? data : []
+      const welpdata = queryData ? queryData : data !== undefined ? data : []
       currentView =     <div className=" w-full p-2 bg-white">
+      <SearchBar/>
       <Table tableHeading={tableHeadings} tableData={welpdata}/>
     </div>
     }
@@ -51,10 +53,9 @@ function App() {
       throw new Error("Unexpected state has occured during fetching data!")  
   }
 
-  return <div>{
-    currentView
-  }
+  return <div>{currentView}
   </div>
+
 }
 
 export default App
