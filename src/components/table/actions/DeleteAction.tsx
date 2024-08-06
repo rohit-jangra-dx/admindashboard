@@ -1,5 +1,5 @@
 import { MdDeleteOutline } from "react-icons/md";
-import { useUserDataContext } from "../../../contexts/UserDataContext";
+import { useUserDataContext } from "@/contexts/UserDataContext";
 
 type DeleteActionProps = {
     toDelete: string[];
@@ -10,7 +10,7 @@ export default function DeleteAction({toDelete}:DeleteActionProps){
 
     return (
     <button
-    className="delete text-red-400 hover:text-red-200"
+    className="delete text-negative hover:text-negativeLight"
     onClick={()=> deleteX(...toDelete)}>
     <MdDeleteOutline
     fontSize={'1.5rem'}/>

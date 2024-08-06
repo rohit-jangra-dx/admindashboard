@@ -19,17 +19,17 @@ export default function EditAction() {
             <div
                 className=" flex justify-center items-center gap-5 text-3xl">
                 <button
-                    className="save"
+                    className="save text-active"
                     onClick={() => {
                         setIsEditingOn(!isEditingOn)
                         updateData()
                     }
                     }>
 
-                    <MdDone className=" text-green-400" />
+                    <MdDone />
                 </button>
                 <button
-                    className="cancel"
+                    className="cancel text-negativeLight"
                     onClick={() => setIsEditingOn(!isEditingOn)}
                 >
                     <MdClose />
@@ -40,7 +40,7 @@ export default function EditAction() {
     }
     else return (
         <button
-            className="edit" onClick={() => setIsEditingOn(!isEditingOn)}>
+            className="edit text-secondary" onClick={() => setIsEditingOn(!isEditingOn)}>
             <MdOutlineModeEdit fontSize={'1.5rem'} />
         </button>
 

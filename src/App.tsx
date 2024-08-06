@@ -3,9 +3,9 @@ import Table from "./components/table/Table"
 import { useUserDataContext } from "./contexts/UserDataContext"
 
 // icons needed to render air
-import { FieldCheckbox } from "./components/table/FieldFormElements"
-import { SearchBar } from "./components/searchbar/SearchBar"
-import { usePaginationContext } from "./contexts/PaginationContext"
+import { FieldCheckbox } from "@/components/table/FieldFormElements"
+import { SearchBar } from "@/components/searchbar/SearchBar"
+import { usePaginationContext } from "@/contexts/PaginationContext"
 import { config } from "./app.config"
 import { PaginationBar } from "./components/pagination/PaginationBar"
 // api endpoint
@@ -48,11 +48,11 @@ function App() {
       currentView = <div className=" bg-red-100 text-center text-red-600 py-[2rem]">{error} !</div>
       break;
     case 'success':{
-      const welpdata = queryData ? queryData : data !== undefined ? data : []
+      const userData = queryData ? queryData : data !== undefined ? data : []
       currentView =     <div className=" w-full p-2 bg-white">
       <SearchBar/>
-      <Table tableHeading={tableHeadings} tableData={welpdata.filter((_,index) => index >= startIndexOfPage && index < lastIndexOfPage)}/>
-      <PaginationBar maximumCountOfPages={Math.ceil(welpdata.length / pageCapacity)}/>
+      <Table tableHeading={tableHeadings} tableData={userData.filter((_,index) => index >= startIndexOfPage && index < lastIndexOfPage)}/>
+      <PaginationBar maximumCountOfPages={Math.ceil(userData.length / pageCapacity)}/>
     </div>
     }
       break;

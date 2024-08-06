@@ -16,7 +16,7 @@ export function FieldInput({value,onBlur}: FieldProps){
 
     return (
         <input
-        className=" px-3 max-w-full focus-visible:outline-none focus-visible:border-[1px] focus-visible:border-slate-800"
+        className=" text-active px-3 max-w-full focus-visible:outline-none focus-visible:border-[1px] focus-visible:border-active"
         value={fieldValue}
         onBlur={onBlur}
         onChange={handleChange}

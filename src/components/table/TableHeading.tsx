@@ -7,10 +7,10 @@ type TableHeadingProps = {
 function TableHeading({headings,numberOfColumns}:TableHeadingProps) {
   return (
     <div
-    className={`grid grid-cols-${numberOfColumns}`}>
+    className={`bg-active text-focus rounded-xl grid grid-cols-${numberOfColumns}`}>
         {headings.map((heading,index)=> <div
         key={index}
-        className=" bg-[#f9fafc] pl-[10px] py-[10px] font-bold text-[#626e7f] flex justify-start items-center">{heading}</div>)}
+        className="pl-[10px] py-[10px] font-bold flex justify-start items-center">{heading}</div>)}
     </div>
   )
 }
