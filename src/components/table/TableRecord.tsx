@@ -17,14 +17,14 @@ function TableRecord({ fields,isSelected ,actions, numberOfColumns }: RecordProp
 
     // dynamic (lol static) classes for columns
     const recordStyleVariant: { [key: string]: string } = {
-        '41': ` grid grid-cols-4 py-[.3rem]  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '51': ` grid grid-cols-5 py-[.3rem]  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '61': ` grid grid-cols-6 py-[.3rem]  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '71': ` grid grid-cols-7 py-[.3rem]  hover:bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '42': ` grid grid-cols-4 py-[.3rem]  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '52': ` grid grid-cols-5 py-[.3rem]  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '62': ` grid grid-cols-6 py-[.3rem]  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
-        '72': ` grid grid-cols-7 py-[.3rem]  bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`,
+        '41': ` grid grid-cols-4 py-[.3rem]  hover:bg-focus border-b-[1px] border-focus`,
+        '51': ` grid grid-cols-5 py-[.3rem]  hover:bg-focus border-b-[1px] border-focus`,
+        '61': ` grid grid-cols-6 py-[.3rem]  hover:bg-focus border-b-[1px] border-focus`,
+        '71': ` grid grid-cols-7 py-[.3rem]  hover:bg-focus border-b-[1px] border-focus`,
+        '42': ` grid grid-cols-4 py-[.3rem]  bg-focus border-b-[1px] border-acitve`,
+        '52': ` grid grid-cols-5 py-[.3rem]  bg-focus border-b-[1px] border-acitve`,
+        '62': ` grid grid-cols-6 py-[.3rem]  bg-focus border-b-[1px] border-active`,
+        '72': ` grid grid-cols-7 py-[.3rem]  bg-focus border-b-[1px] border-active`,
     }
 
     // dealing with reactnode maniac
@@ -38,7 +38,7 @@ function TableRecord({ fields,isSelected ,actions, numberOfColumns }: RecordProp
                 className={recordStyleVariant[variantClass]}>
                 {fields.map((field, index) => <div
                     key={index}
-                    className="pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)}
+                    className=" text-secondary pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)}
                 {actions &&
 
                     <div
@@ -53,7 +53,7 @@ function TableRecord({ fields,isSelected ,actions, numberOfColumns }: RecordProp
     else {
         return (
             <div
-                className={` grid grid-cols-${numberOfColumns} bg-[#F9FAFC] border-b-[1px] border-[#F9FAFC]`}>
+                className={recordStyleVariant[variantClass]}>
 
                 {fields.map((field, index) => {
 
@@ -75,7 +75,7 @@ function TableRecord({ fields,isSelected ,actions, numberOfColumns }: RecordProp
                     else if (React.isValidElement(field)) {
                         return (<div
                             key={index}
-                            className="pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)
+                            className=" pl-[10px] py-[10px] whitespace-nowrap truncate">{field}</div>)
                     }
 
                 }

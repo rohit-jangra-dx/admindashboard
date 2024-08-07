@@ -52,9 +52,9 @@ export function SearchBar(){
 
     return (
         <div
-        className=" relative bg-slate-400 flex items-center px-[.5rem] py-[1rem]">
+        className=" relative w-full flex items-center pt-[1rem] pb-[.5rem]">
             <MdOutlineSearch 
-            className="search-icon absolute right-0 mr-4"
+            className="search-icon text-secondary hover:scale-90 transition-all absolute right-0 mr-4"
             fontSize={'1.5rem'}
             onClick={handleClick}
             />
@@ -62,7 +62,7 @@ export function SearchBar(){
             onKeyDown={(e) => e.key === 'Enter' && setQueryData(searchResults)}
             value={searchText}
             onChange={handleChange}
-            className=" flex-1 p-[.5rem] px-4 rounded-lg border-none focus-visible:outline-none"
+            className=" flex-1 p-[.5rem] px-4 rounded-lg border-[1px] border-secondary text-secondary focus-visible:outline-none"
             placeholder="Search by Name, Email or Role"
             />
         </div>

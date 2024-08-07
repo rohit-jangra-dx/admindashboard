@@ -14,7 +14,7 @@ function PaginatedButton({ label, value }: PaginatedButtonProps) {
   
   if (currentPage === value && !React.isValidElement(label) ) {
     return <button
-      className="bg-[#d1cece] flex justify-center items-center w-[50px] h-[50px] rounded-full"
+      className=" bg-active text-focus font-bold flex justify-center items-center rounded-full w-[50px] h-[50px]"
       onClick={() => value !== null && updateCurrentPage(value)}
     >
       {label}
@@ -22,7 +22,7 @@ function PaginatedButton({ label, value }: PaginatedButtonProps) {
   }
   return (
     <button
-    className=" text-xl hover:bg-[#e0e4ec] flex justify-center items-center w-[50px] h-[50px] rounded-full"
+    className=" text-xl hover:bg-focus text-secondary flex justify-center items-center w-[50px] h-[50px] rounded-full"
       onClick={() => value !== null && updateCurrentPage(value)}
     >
       {label}

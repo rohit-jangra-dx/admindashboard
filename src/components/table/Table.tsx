@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import TableHeading from "./TableHeading";
 import TableRecord from "./TableRecord";
 import { User } from "../../hooks/useFetchData";
@@ -10,7 +9,7 @@ import { useUserDataContext } from "../../contexts/UserDataContext";
 
 
 type TableProps = {
-    tableHeading: Array<string | ReactNode>;
+    tableHeading: Array<string>;
     tableData: Array<User>;
 }
 
