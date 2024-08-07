@@ -9,10 +9,6 @@ import  {ThemeConfig} from 'tailwindcss/types/config'
         negative: '#A91D3A',
         negativeLight: '#C73659'
     },
-    screens:{
-        xs: '350px',
-        s: '550px',
-    }
 }
 
 export default theme;

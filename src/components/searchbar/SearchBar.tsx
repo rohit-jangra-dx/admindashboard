@@ -52,7 +52,7 @@ export function SearchBar(){
 
     return (
         <div
-        className=" relative  flex items-center pt-[1rem] pb-[.5rem]">
+        className=" relative w-full flex items-center pt-[1rem] pb-[.5rem]">
             <MdOutlineSearch 
             className="search-icon text-secondary hover:scale-90 transition-all absolute right-0 mr-4"
             fontSize={'1.5rem'}

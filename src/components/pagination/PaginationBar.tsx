@@ -19,7 +19,7 @@ export function PaginationBar({ maximumCountOfPages }: PaginationBarProps) {
     const pages = Array.from({ length: maximumCountOfPages }, (_, i) => i + 1)
 
 
-    return (<div className= "w-full flex justify-center items-center gap-2 ">
+    return (<div className= "flex-1 flex justify-center items-center gap-2 ">
         {/* forward and first page buttons */}
         <PaginatedButton
             label={<MdKeyboardDoubleArrowLeft />}

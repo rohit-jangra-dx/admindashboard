@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useFetchData, User } from "../hooks/useFetchData"
+import { config } from "@/app.config";
 
 interface Actions {
     deleteX: (...ids: string[]) => void;
@@ -14,14 +15,13 @@ type UserDataContextType = {
     error?: string | null | undefined;
     selectedUsers: Record<string, boolean>;
     isAllSelected: boolean;
-    queryData: Array<User> | undefined;
+    queryData?: Array<User> | undefined;
     setQueryData: (queryData: Array<User> | undefined) => void
 }
 
 const UserDataContext = createContext<UserDataContextType | undefined>(undefined)
-
 // 
-const url = 'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json'
+const url = config.url
 
 export function UserDataContextProvider({ children }: { children: ReactNode }) {
 
@@ -101,13 +101,12 @@ export function UserDataContextProvider({ children }: { children: ReactNode }) {
 
     return <UserDataContext.Provider value={
         {
-            data,
+            data: queryData || data,
             actions,
             status: loading ? 'loading' : error ? 'error' : 'success',
             error,
             selectedUsers, 
             isAllSelected,
-            queryData,
             setQueryData
             }
         }>
